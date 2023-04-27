@@ -47,6 +47,41 @@ Expected stdout output
    3. Use LangChain to create a modified prompt to send to ChatGPT, prefixing all of the data we found when querying our vectorstore.
    4. Send the modified prompt to the ChatGPT API endpoints, and render the response to the user.
 
+## Run the script
+
+Before running the script:
+
+```sh
+# ensure plugins installed
+meltano install
+
+# create/activate virtual environment
+python3 -m venv/bin/activate
+. venv/bin/activate
+
+# install dependencies
+pip install -r requirements.txt
+
+# set required environment varaiables
+echo 'COMPANIES_HOUSE_API_KEY=your-api-key' >> .env
+echo 'OPENAI_API_KEY=your-api-key' >> .env
+# export COMPANIES_HOUSE_API_KEY='your-api-key'
+# export OPENAI_API_KEY='your-api-key'
+
+```
+
+Then:
+
+```sh
+python3 script.py $COMPANY_NUMBER
+
+# e.g. python3 script.py 08275103
+
+# output to a csv file
+echo 'company_number,accounts_made_up_date,accounts_filing_date,total_employees,total_assets' > output/results.csv
+python3 script.py $COMPANY_NUMBER >> output/results.csv
+```
+
 ## Glossary of terms and tools
 
 ### Embeddings
