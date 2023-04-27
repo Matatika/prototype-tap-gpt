@@ -1,0 +1,56 @@
+version: 1
+default_environment: dev
+project_id: Prototype tap-gpt
+include_paths:
+- '**/*.meltano.yml'
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-beautifulsoup
+    variant: matatika
+    pip_url: git+https://github.com/aphethean1/tap-beautifulsoup
+#    pip_url: -e /home/aphethean/projects/tap-beautifulsoup
+  loaders:
+  - name: target-chromadb
+    namespace: target_chromadb
+    pip_url: git+https://github.com/meltanolabs/target-chromadb.git
+    config:
+      db_directory: output/chromadb/
+  - name: target-singer-jsonl
+    variant: kgpayne
+    pip_url: target-singer-jsonl
+  utilities:
+  - name: gpt
+    namespace: gpt
+    pip_url: git+https://github.com/meltanolabs/gpt-ext.git
+    executable: gpt_ext
+    settings:
+    - name: openai_api_key
+      env: GPT_EXT_OPENAI_API_KEY
+      kind: password
+    - name: chroma_dir
+      env: GPT_EXT_CHROMA_DIR
+      kind: string
+    - name: chat_history_dir
+      env: GPT_EXT_CHAT_HISTORY_DIR
+      kind: string
+    commands:
+      chat: chat
+    config:
+      openai_api_key: ${OPENAI_API_KEY}
+      chroma_dir: output/chromadb/
+      chat_history_dir: output/chat_history/
+  mappers:
+  - name: map-gpt-embeddings
+    namespace: map_gpt_embeddings
+    pip_url: git+https://github.com/meltanolabs/map-gpt-embeddings.git
+    executable: map-gpt-embeddings
+    settings:
+    - name: openai_api_key
+      kind: password
+    mappings:
+    - name: add-embeddings
+      config: {}

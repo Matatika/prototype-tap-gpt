@@ -1,0 +1,53 @@
+{
+  "plugin_type": "extractors",
+  "name": "tap-beautifulsoup",
+  "namespace": "tap-beautifulsoup",
+  "variant": "matatika",
+  "label": "Beautiful Soup",
+  "repo": "https://github.com/aphethean1/tap-beautifulsoup",
+  "pip_url": "git+https://github.com/aphethean1/tap-beautifulsoup",
+  "executable": "tap-beautifulsoup",
+  "description": "Webscraping tap",
+  "capabilities": [
+    "state",
+    "catalog",
+    "discover"
+  ],
+  "settings": [
+    {
+      "name": "source_name",
+      "kind": "string",
+      "description": "Helps uniquely identify websites.",
+      "protected": false,
+      "required": "true"
+    },
+    {
+      "name": "site_url",
+      "kind": "string",
+      "description": "Target website.",
+      "protected": false,
+      "required": "true"
+    },
+    {
+      "name": "site_path",
+      "kind": "string",
+      "description": "Target website path.",
+      "protected": false,
+      "required": "false"
+    },
+    {
+      "name": "output_folder",
+      "kind": "string",
+      "description": "Local directory.",
+      "protected": false,
+      "required": "false"
+    },
+    {
+      "name": "parser",
+      "kind": "string",
+      "description": "HTML parser (html.parser | lxml | lxml-xml | html5lib).",
+      "protected": false,
+      "required": "false"
+    }
+  ]
+}
