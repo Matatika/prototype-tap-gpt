@@ -8,8 +8,8 @@ Create a .env
 
 ```
     TAP_BEAUTIFULSOUP_SOURCE_NAME=matatika-docs
-    TAP_BEAUTIFULSOUP_SITE_URL=find-and-update.company-information.service.gov.uk/company/03007129/filing-history
-    TAP_BEAUTIFULSOUP_SITE_PATH=MzM2NDE1Mjc2NWFkaXF6a2N4/document?format=xhtml
+    TAP_BEAUTIFULSOUP_SITE_URL=find-and-update.company-information.service.gov.uk/company/03007129/filing-history/MzM2NDE1Mjc2NWFkaXF6a2N4/document?format=xhtml
+    TAP_BEAUTIFULSOUP_SITE_PATH=""
     #TAP_BEAUTIFULSOUP_PARSER=lxml
     OPENAI_API_KEY=[your key]
     OPENAI_CHROMA_DIR=output/chromadb
@@ -21,7 +21,14 @@ Run the extraction
 ```
     rm -fR ./output/chromadb
     meltano run tap-beautifulsoup add-embeddings target-chromadb
-    meltano invoke gpt:chat --questions="123456,How many employees?"
+    meltano invoke gpt:chat --questions="123456,How many employees?,What are the total assets in gbp?"
+```
+
+Expected stdout output
+
+```
+    03007129,89,"3,625,897"
+
 ```
 
 

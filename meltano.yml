@@ -1,4 +1,5 @@
 version: 1
+send_anonymous_usage_stats: false
 default_environment: dev
 project_id: Prototype tap-gpt
 include_paths:
