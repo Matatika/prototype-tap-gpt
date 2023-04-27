@@ -12,7 +12,7 @@ plugins:
   - name: tap-beautifulsoup
     variant: matatika
     pip_url: git+https://github.com/aphethean1/tap-beautifulsoup
-#    pip_url: -e /home/aphethean/projects/tap-beautifulsoup
+#    pip_url: -e ../tap-beautifulsoup
   loaders:
   - name: target-chromadb
     namespace: target_chromadb
@@ -25,7 +25,8 @@ plugins:
   utilities:
   - name: gpt
     namespace: gpt
-    pip_url: git+https://github.com/meltanolabs/gpt-ext.git
+    pip_url: git+https://github.com/aphethean1/gpt-ext.git
+#    pip_url: -e ../gpt-ext
     executable: gpt_ext
     settings:
     - name: openai_api_key

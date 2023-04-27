@@ -19,8 +19,9 @@ Create a .env
 Run the extraction
 
 ```
+    rm -fR ./output/chromadb
     meltano run tap-beautifulsoup add-embeddings target-chromadb
-    meltano invoke gpt:chat --question="How many employees?"
+    meltano invoke gpt:chat --questions="123456,How many employees?"
 ```
 
 
