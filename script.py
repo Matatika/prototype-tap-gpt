@@ -102,7 +102,7 @@ if __name__ == "__main__":
         accounts_data.append(
             (
                 company_number,
-                made_up_date,
+                made_up_date or filing_date,    # made up date sometimes missing, so fallback to filing date
                 filing_date,
                 f"{company_info_url}{self_link}/document?format={format}",
             )
