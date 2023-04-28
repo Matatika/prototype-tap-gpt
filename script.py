@@ -129,10 +129,10 @@ if __name__ == "__main__":
             "What are the total assets in GBP?",
         ]
 
-        print_stderr(f"Questions: {', '.join(input)}'")
+        questions = ",".join(input)
+        gpt_command = f"meltano invoke gpt:chat --questions '{questions}'"
 
-        process = run_command(
-            f"meltano invoke gpt:chat --questions '{','.join(input)}'"
-        )
+        print_stderr(gpt_command)
 
+        process = run_command(gpt_command)
         print(process.stdout.strip())
