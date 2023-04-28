@@ -49,6 +49,20 @@ Expected stdout output
 
 ## Run the script
 
+### Create a Companies House API key
+- Go to [Create an application](https://developer.company-information.service.gov.uk/manage-applications/add) (sign up for a Companies House account if not done already)
+   - 'Application name' is required
+   - 'Description of application' is required
+   - 'Choose an environment for your application' set to 'Live'
+- Go to [View all applications](https://developer.company-information.service.gov.uk/manage-applications) and click on your newly created application name under 'Live applications'
+- Under 'Keys for this application', click 'Create new key'
+   - 'Key name' is required
+   - 'Key description' is required
+   - 'Choose an environment for your application' set to 'Live'
+   - 'Select the type of API client key you want to create' set to 'REST'
+- Copy the 'API key' value for the newly created application key 
+
+
 Before running the script:
 
 ```sh
