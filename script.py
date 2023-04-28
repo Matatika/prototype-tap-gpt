@@ -1,8 +1,8 @@
-import csv
 import os
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 from urllib.parse import urlparse
 
 import requests
@@ -79,7 +79,6 @@ if __name__ == "__main__":
             + urlparse(document_metadata_url).path
         )
 
-        # add document link if it exists in xhtml format
         response = requests.get(document_metadata_url, auth=auth)
         response.raise_for_status()
 
@@ -89,19 +88,33 @@ if __name__ == "__main__":
         made_up_date = document_data["significant_date"]
         filing_date = document_data["created_at"]
 
-        if resources.get("application/xhtml+xml"):
-            accounts_data.append(
-                (
-                    company_number,
-                    made_up_date,
-                    filing_date,
-                    f"{company_info_url}{self_link}/document?format=xhtml",
-                )
+        # prefer xhtml over pdf
+        formats = {
+            "xhtml": resources.get("application/xhtml+xml"),
+            "pdf": resources.get("application/pdf"),
+        }
+
+        format = next((k for k, v in formats.items() if v), None)
+
+        if not format:
+            continue
+
+        accounts_data.append(
+            (
+                company_number,
+                made_up_date,
+                filing_date,
+                f"{company_info_url}{self_link}/document?format={format}",
             )
+        )
 
     for data in accounts_data:
         # destructure document_url from rest of data to be written to csv
         *csv_data, document_url = data
+
+        # regenerate pdf for each set of data, if applicable
+        document_name = document_url.split("/")[-1]
+        Path("output", f"{document_name}.pdf").unlink(missing_ok=True)
 
         # regenerate db for each set of data
         shutil.rmtree(os.environ["OPENAI_CHROMA_DIR"], ignore_errors=True)
